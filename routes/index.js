@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Magzine = require('../models/Magzine')
+const Magzine = require('../models/magzineModel')
 const classifyByDate = require('../utils/func')
 
 

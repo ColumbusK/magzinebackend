@@ -1,20 +1,26 @@
 const mongoose = require("mongoose");
 
 
-const magzineSchema = new mongoose.Schema({
-  title: {
+const magzineSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      maxlength: 13,
+      unique: true
+    },
     type: String,
-    maxlength: 13
+    coverUrl: String,
+    panUrl: String,
+    datetime: {
+      type: Date,
+      require: true
+    },
+    tags: String     // 数据验证
   },
-  type: String,
-  coverUrl: String,
-  panUrl: String,
-  datetime: {
-    type: Date,
-    require: true
-  },
-  tags: String     // 数据验证
-})
+  {
+    timestamps: true
+  }
+)
 
 
 // 数据格式化处理 transform

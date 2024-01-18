@@ -3,29 +3,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+//
+const { errorHandler } = require('./middlewares/errorMiddleware');
 const middleware = require('./utils/middlerware')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const mongoose = require("mongoose");
-const config = require('./utils/config')
-const _logger = require('./utils/logger')
 //
-const app = express();
+const connectDB = require('./connection/database');
 
 // 连接数据库
-_logger.info('connecting to', config.MONGODB_URI)
-mongoose.connect(
-  config.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => {
-    _logger.info('connected to MongoDB')
-  })
-  .catch((error) => {
-    _logger.error('error connecting to MongoDB:', error.message)
-  })
-
+connectDB();
+const app = express();
 
 
 // view engine setup
@@ -44,6 +32,7 @@ app.use('/images', express.static('images'));
 
 // 加载路由中间件
 app.use('/', indexRouter);
+app.use('/api/magzines', require('./routes/magzineRoutes'))
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
