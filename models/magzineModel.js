@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const magzineSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
     title: {
       type: String,
       maxlength: 13,
@@ -13,7 +18,7 @@ const magzineSchema = new mongoose.Schema(
     panUrl: String,
     datetime: {
       type: Date,
-      require: true
+      required: true
     },
     tags: String     // 数据验证
   },

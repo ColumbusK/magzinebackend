@@ -33,11 +33,11 @@ app.use('/images', express.static('images'));
 // 加载路由中间件
 app.use('/', indexRouter);
 app.use('/api/magzines', require('./routes/magzineRoutes'))
-app.use('/users', usersRouter);
+app.use('/api/users', require('./routes/userRoutes'));
 
 // catch 404 and forward to error handler
 app.use(middleware.unknowEndpoint);
 // error handler
-app.use(middleware.errorHandler);
+app.use(errorHandler);
 
 module.exports = app;
