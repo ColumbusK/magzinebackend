@@ -5,11 +5,19 @@ const Magzine = require('../models/magzineModel');
 const getMagzines = asyncHandler(async (req, res) => {
   console.log('route: /api/magzines');
   // const magzines = await Magzine.find({ user: req.user.id })
-  console.log(req.user.id);
-  const magzines = await Magzine.find({ user: req.user.id }).sort({ datetime: -1 });
+  // console.log(req.user.id);
+  const magzines = await Magzine.find({ type: 'TE' }).sort({ datetime: -1 });
   res.status(200).json(magzines);
 })
 
+//
+const getMagzine = asyncHandler(async (req, res) => {
+  console.log('route: /api/magzines/:id');
+  const id = req.params.id
+  console.log("id", id)
+  const magzines = await Magzine.find({ _id: id });
+  res.status(200).json(magzines);
+})
 
 const addMagzine = asyncHandler(async (req, res) => {
   let data = req.body;
@@ -53,4 +61,4 @@ const deleteMagzine = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { getMagzines, addMagzine, updateMagzine, deleteMagzine };
+module.exports = { getMagzines, addMagzine, updateMagzine, deleteMagzine, getMagzine };

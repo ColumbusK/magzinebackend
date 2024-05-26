@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
   {
     uid: {
       type: String,
-      required: [true, "Uid is required"],
+      // required: [true, "Uid is required"],
       unique: true
     },
     username: {
@@ -20,6 +20,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"]
     },
+    bid: {
+      type: Number,
+      unique: true,
+      required: [true, "Registe bid is required"]
+    }
   },
   {
     timestamps: true
