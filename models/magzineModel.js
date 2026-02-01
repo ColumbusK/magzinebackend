@@ -1,40 +1,44 @@
 const mongoose = require("mongoose");
 
-
 const magzineSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User'
+      ref: "User",
     },
     title: {
       type: String,
       maxlength: 13,
-      unique: true
+      unique: true,
     },
     type: String,
     coverUrl: String,
     panUrl: String,
     datetime: {
       type: Date,
-      required: true
+      required: true,
     },
-    tags: String     // 数据验证
+    tags: String, // 数据验证
+    // 增加：下载所需点数
+    pointsRequired: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   {
-    timestamps: true
-  }
-)
-
+    timestamps: true,
+  },
+);
 
 // 数据格式化处理 transform
-magzineSchema.set('toJSON', {
+magzineSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
 module.exports = mongoose.model("Magzine", magzineSchema);

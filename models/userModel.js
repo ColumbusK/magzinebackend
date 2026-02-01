@@ -1,44 +1,47 @@
 const mongoose = require("mongoose");
 
-
 const userSchema = new mongoose.Schema(
   {
     uid: {
       type: String,
       // required: [true, "Uid is required"],
-      unique: true
+      unique: true,
     },
     username: {
       type: String,
-      maxlength: 50
+      maxlength: 50,
     },
     email: {
       type: String,
-      unique: true
+      unique: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required"]
+      required: [true, "Password is required"],
     },
     bid: {
       type: Number,
       unique: true,
-      required: [true, "Registe bid is required"]
-    }
+      required: [true, "Registe bid is required"],
+    },
+    balance: {
+      type: Number,
+      default: 0,
+      min: 0, // 余额不允许为负数
+    },
   },
   {
-    timestamps: true
-  }
-)
-
+    timestamps: true,
+  },
+);
 
 // 数据格式化处理 transform
-userSchema.set('toJSON', {
+userSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
-})
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 
 module.exports = mongoose.model("User", userSchema);
